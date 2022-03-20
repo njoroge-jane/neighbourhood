@@ -1,25 +1,40 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
+
+class Neighbourhood(models.Model):
+    DONHOLM = 'DON'
+    PIPELINE = 'PIP'
+    BURUBURU = 'BUR'
+    FEDHA = 'DHA'
+    EMBAKASI = 'EMB'
+    HOME_NAME = [
+        (DONHOLM, 'Donholm'),
+        (PIPELINE, 'Pipeline'),
+        (BURUBURU, 'Buruburu'),
+        (FEDHA, 'Fedha'),
+        (EMBAKASI, 'Embakasi'),
+    ]
+    home_name = models.CharField(
+        max_length=3, choices=HOME_NAME, default=DONHOLM,)
+    location = models.CharField()
+    occupants_count = models.IntegerChoices()
+    admin = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
 class Neighbour(models.Model):
-  home_name = models.CharField()
-  location = models.CharField()
-  occupants_count = models.IntegerChoices()
-  admin = models.ForeignKey(User)
-
-class User(models.Model):
-  name = models.CharField()
-  id = models.IntegerField()
-  neighbour_id = models.ForeignKey(Neighbour)
-  email = models.EmailField()
-
+    name = models.CharField()
+    id = models.IntegerField()
+    neighbourhood_id = models.ForeignKey(
+        Neighbourhood, on_delete=models.CASCADE)
+    email = models.EmailField()
 
 
 class Business(models.Model):
-  business_name = models.CharField()
-  user =  models.ForeignKey(User)
-  neighbour_id = models.ForeignKey(Neighbour)
-  business_email= models.EmailField()
-
-
+    business_name = models.CharField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    neighbourhood_id = models.ForeignKey(
+        Neighbourhood, on_delete=models.CASCADE)
+    business_email = models.EmailField()
