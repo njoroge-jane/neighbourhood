@@ -19,21 +19,21 @@ class Neighbourhood(models.Model):
     ]
     home_name = models.CharField(
         max_length=3, choices=HOME_NAME, default=DONHOLM,)
-    location = models.CharField()
-    occupants_count = models.IntegerChoices()
+    location = models.CharField(max_length=30)
+    occupants_count = models.IntegerField()
     admin = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Neighbour(models.Model):
-    name = models.CharField()
-    id = models.IntegerField()
+    name = models.CharField(max_length=50)
+    id = models.IntegerField(primary_key=True)
     neighbourhood_id = models.ForeignKey(
         Neighbourhood, on_delete=models.CASCADE)
     email = models.EmailField()
 
 
 class Business(models.Model):
-    business_name = models.CharField()
+    business_name = models.CharField(max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     neighbourhood_id = models.ForeignKey(
         Neighbourhood, on_delete=models.CASCADE)
