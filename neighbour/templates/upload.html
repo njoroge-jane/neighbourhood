@@ -2,9 +2,9 @@
 {% load bootstrap5 %} {% load static %}
 
 {%block content%}
-<div class="container">
+<div class="container mt-5" style="background-image: url('https://images.pexels.com/photos/8293778/pexels-photo-8293778.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');background-repeat: no-repeat;background-position: right;">
   <div class="row">
-    <div class="col-md-8 mt-5">
+    <div class="col-md-6 mt-5">
       <form  action="{%url 'upload'%}" method="post" enctype="multipart/form-data">
         {%csrf_token%}
     
