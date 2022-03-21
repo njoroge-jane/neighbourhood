@@ -25,7 +25,7 @@ class Neighbourhood(models.Model):
 
 
 class Neighbour(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.OneToOneField(User, on_delete=models.CASCADE)
     id = models.IntegerField(primary_key=True)
     neighbourhood_id = models.ForeignKey(
         Neighbourhood, on_delete=models.CASCADE)
