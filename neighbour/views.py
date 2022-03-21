@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .forms import ProfileForm
+from .forms import ProfileForm, UploadForm
 from .models import Business,Neighbour,Neighbourhood
 
 # Create your views here.
@@ -40,3 +40,17 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
 
+def upload(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            upload = form.save(commit=False)
+            upload.user = current_user
+            upload.save()
+        return redirect('index')
+
+    else:
+        form = UploadForm()
+    return render(request, 'upload.html', {"form": form})
+  
