@@ -1,6 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 {% if neighbour %}
+<i
+class="fas fa-user display-3 border me-5 p-3 rounded-circle text-center"
+style="color: rgb(134, 188, 206); border-color: black"
+></i>
+<p>{{ neighbour.name }}</p>
+{{ neighbour.neighbour_id }}
 <p>{{ neighbour.email }}</p>
+{%else%}
+<h1>This is the profile page for {{user.username}}</h1>
+<form  action="{%url 'profile'%}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  {% bootstrap_form form %}
+  <input type="submit" class="btn btn-success btn-lg" value="Post">
+</form>
+</div>
 {% endif %}
 {% endblock %}
