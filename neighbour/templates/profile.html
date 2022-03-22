@@ -1,13 +1,23 @@
 {% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static%}
 {% block content %}
 {% if neighbour %}
-<i
-class="fas fa-user display-3 border me-5 p-3 rounded-circle text-center"
-style="color: rgb(134, 188, 206); border-color: black"
-></i>
-<p>{{ neighbour.name }}</p>
-{{ neighbour.neighbour_id }}
-<p>{{ neighbour.email }}</p>
+<div class="container">
+  <div class="row">
+    <div class="card shadow">
+      <div class="text-center">
+        <i
+      class="fas fa-user display-3 border me-5 p-3 rounded-circle text-center"
+      style="color: rgb(134, 188, 206); border-color: black"
+      ></i>
+      <p>My Name : {{ neighbour.name }}</p>
+      <h6>NeighbourHood : {{ neighbour.neighbourhood_id }}</h6>
+      <p>My Email : {{ neighbour.email }}</p>
+      </div>
+    </div>
+  </div>
+</div>
 {%else%}
 <h1>This is the profile page for {{user.username}}</h1>
 <form  action="{%url 'profile'%}" method="post" enctype="multipart/form-data">
